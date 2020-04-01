@@ -5,16 +5,19 @@
 #
 
 
-import virtGPIO as GPIO
-from lib_nrf24 import NRF24
+import RPi.GPIO as GPIO
+from nrf24 import NRF24
 import time
+import spidev
+
+GPIO.setmode(GPIO.BCM)
 
 
 
 pipes = [[0xe7, 0xe7, 0xe7, 0xe7, 0xe7], [0xc2, 0xc2, 0xc2, 0xc2, 0xc2]]
 
-radio = NRF24(GPIO, GPIO.SpiDev())
-radio.begin(10, 8) #Set spi-ce pin10, and rf24-CE pin 8
+radio = NRF24(GPIO, spidev.SpiDev())
+radio.begin(0, 17)
 time.sleep(1)
 radio.setRetries(15,15)
 radio.setPayloadSize(32)

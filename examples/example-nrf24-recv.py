@@ -4,18 +4,16 @@
 # Example program to receive packets from the radio link
 #
 
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-from lib_nrf24 import NRF24
+import virtGPIO as GPIO
+from nrf24 import NRF24
 import time
-import spidev
 
 
 
 pipes = [[0xe7, 0xe7, 0xe7, 0xe7, 0xe7], [0xc2, 0xc2, 0xc2, 0xc2, 0xc2]]
 
-radio2 = NRF24(GPIO, spidev.SpiDev())
-radio2.begin(0, 17)
+radio2 = NRF24(GPIO, GPIO.SpiDev())
+radio2.begin(9, 7)
 
 radio2.setRetries(15,15)
 
