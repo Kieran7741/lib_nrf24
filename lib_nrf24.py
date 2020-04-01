@@ -1,38 +1,6 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-#
-
-
-# This file lib_nrf24.py is a slightly tweaked version of Barraca's "pynrf24".
-
-# So this is my tweak for Raspberry Pi and "Virtual GPIO" ...
-#       ... of Barraca's port to BeagleBone python ...  (Joao Paulo Barraca <jpbarraca@gmail.com>)
-#                ... of maniacbug's NRF24L01 C++ library for Arduino.
-# Brian Lavery Oct 2014
-
-
-
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-
 
 import sys
 import time
-
-if __name__ == '__main__':
-    print (sys.argv[0], 'is an importable module:')
-    print ("...  from", sys.argv[0], "import lib_nrf24")
-    print ("")
-
-    exit()
 
 def _BV(x):
     return 1 << x
@@ -180,14 +148,14 @@ class NRF24:
     GPIO = None
     spidev = None
 
-    def __init__(self, gpio, spidev):
+    def __init__(self, gpio, spidev, data_rate=NRF24.BR_1MBPS):
         # It should be possible to instantiate multiple objects, with different GPIO / spidev
         # EG on Raspberry, one could be RPI GPIO & spidev module, other could be virtual-GPIO
         # On rpi, only bus 0 is supported here, not bus 1 of the model B plus
         self.GPIO = gpio   # the GPIO module
         self.spidev = spidev # the spidev object/instance
         self.channel = 76
-        self.data_rate = NRF24.BR_1MBPS
+        self.data_rate = data_rate
         self.wide_band = False # 2Mbs data rate in use?
         self.p_variant = False # False for RF24L01 and true for RF24L01P (nrf24l01+)
         self.payload_size = 5 #*< Fixed size of payloads
