@@ -155,14 +155,14 @@ class NRF24:
     GPIO = None
     spidev = None
 
-    def __init__(self, gpio, spidev, data_rate=NRF24.BR_1MBPS):
+    def __init__(self, gpio, spidev):
         # It should be possible to instantiate multiple objects, with different GPIO / spidev
         # EG on Raspberry, one could be RPI GPIO & spidev module, other could be virtual-GPIO
         # On rpi, only bus 0 is supported here, not bus 1 of the model B plus
         self.GPIO = gpio   # the GPIO module
         self.spidev = spidev # the spidev object/instance
         self.channel = 76
-        self.data_rate = data_rate
+        self.data_rate = self.BR_2MBPS
         self.wide_band = False # 2Mbs data rate in use?
         self.p_variant = False # False for RF24L01 and true for RF24L01P (nrf24l01+)
         self.payload_size = 5 #*< Fixed size of payloads
