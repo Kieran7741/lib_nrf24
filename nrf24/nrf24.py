@@ -2,6 +2,13 @@
 import sys
 import time
 
+def convert_message_to_bytes(message):
+    """
+    Converts the provided message from list of bytes to a string
+    """
+
+    return ''.join([chr(n) for n in message if n> 32 and n <=126])
+
 def _BV(x):
     return 1 << x
 
